@@ -8,6 +8,8 @@ public class AnswerDetection : MonoBehaviour
 {
     public GameObject[] currentRow;
     public GameObject[] answerKey;
+    public GameObject[] pins;
+    public GameObject hintGrid;
 
     
     void Start()
@@ -57,10 +59,14 @@ public class AnswerDetection : MonoBehaviour
             if (currentMats[i].color == answerMats[i].color)
             {
                 answerValues[i] = 1;
+
+                InstantiateCorrectPin(hintGrid.transform.GetChild(i).transform);
             }
             else if (colorAnswers.Contains(currentMats[i].color))
             {
                 answerValues[i] = 0;
+
+                InstantiateWrongPin(hintGrid.transform.GetChild(i).transform);
             }
             else
             {
@@ -68,5 +74,20 @@ public class AnswerDetection : MonoBehaviour
             }
             Debug.Log(answerValues[i]);
         }
+
+    }
+
+    void InstantiateCorrectPin(Transform transform)
+    {
+        GameObject pin = Instantiate(pins[0]);
+
+        pin.transform.position = transform.position;
+    }
+
+    void InstantiateWrongPin(Transform transform)
+    {
+        GameObject pin = Instantiate(pins[1]);
+
+        pin.transform.position = transform.position;
     }
 }
